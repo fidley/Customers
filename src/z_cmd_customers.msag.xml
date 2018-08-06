@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Messages for customer CMD classes</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>&amp;1 &amp;2 &amp;3 &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Customer &amp;1 does not exists.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>No data to change</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>There was an error during customer update/creation. Please check messages</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Contact &amp;1 does not exists for customer &amp;2.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Customer &amp;1 is not open on &amp;2 &amp;3 &amp;4.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Customer &amp;1 is already open on &amp;2 &amp;3 &amp;4.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Text ID &amp;1 already exists.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Text ID &amp;1 does not exists.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>VAT for country &amp;1 does not exists.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>VAT for country &amp;1 already exists.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>Tax Indicator for country &amp;1 and category &amp;2 does not exists.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>Tax Indicator for country &amp;1 and category &amp;2 already exists.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>Customer is not opened in &amp;1.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Customer is already opened in &amp;1.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z_CMD_CUSTOMERS</ARBGB>
+     <MSGNR>666</MSGNR>
+     <TEXT>An exception occured. Please check messages.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>
