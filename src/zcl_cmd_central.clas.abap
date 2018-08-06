@@ -320,45 +320,6 @@ public section.
   methods SET_DECREGPC
     importing
       value(I_DECREGPC) type J_1BDECREGPC .
-  methods SET_ZZBPKIND
-    importing
-      value(I_ZZBPKIND) type BU_BPKIND .
-  methods SET_ZZPOTENT
-    importing
-      value(I_ZZPOTENT) type ZZPOTENTIAL .
-  methods SET_ZZLOYAL
-    importing
-      value(I_ZZLOYAL) type ZZLOYAL .
-  methods SET_ZZCPDRV
-    importing
-      value(I_ZZCPDRV) type ZZVABCRM_CPDRV .
-  methods SET_ZZRPDOM
-    importing
-      value(I_ZZRPDOM) type ZZVABCRM_RPDOM .
-  methods SET_ZZRPCOM
-    importing
-      value(I_ZZRPCOM) type ZZVABCRM_RPCOM .
-  methods SET_ZZQUOTX
-    importing
-      value(I_ZZQUOTX) type ZZVABCRM_QUOTX .
-  methods SET_ZZBUSAR
-    importing
-      value(I_ZZBUSAR) type ZZBUSAR .
-  methods SET_ZZRESPNAME
-    importing
-      value(I_ZZRESPNAME) type ZZRESPNAME .
-  methods SET_ZZRESPFUNC
-    importing
-      value(I_ZZRESPFUNC) type ZZRESPFUNC .
-  methods SET_ZZBIDDING
-    importing
-      value(I_ZZBIDDING) type ZZVABCRM_BIDDING .
-  methods SET_ZZCUSCLUS
-    importing
-      value(I_ZZCUSCLUS) type ZZVABCRM_CUSCLUS .
-  methods SET_ZZWHOAG
-    importing
-      value(I_ZZWHOAG) type ZZSDX_WHOAG .
   protected section.
   private section.
 
