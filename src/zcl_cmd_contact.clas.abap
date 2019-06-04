@@ -16,7 +16,7 @@ public section.
       !I_CONTACT type KNVP-PARNR optional
       !I_CUSTOMER type KNVP-KUNNR
     raising
-      ZCX_CUSTOMER .
+      ZCX_CMD_CUSTOMER .
     "! Manually set all structures and pass them here
   methods SET_DATA
     importing
@@ -985,7 +985,7 @@ CLASS ZCL_CMD_CONTACT IMPLEMENTATION.
       where kunnr eq @customer
       and   parnr eq @contact.
       if sy-subrc ne 0.
-        raise exception type zcx_customer exporting no = 004 v1 = conv #( contact ) v2 = conv #( customer ).
+        raise exception type zcx_cmd_customer exporting no = 004 v1 = conv #( contact ) v2 = conv #( customer ).
       endif.
     endif.
 

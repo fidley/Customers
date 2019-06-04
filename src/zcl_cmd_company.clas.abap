@@ -349,7 +349,7 @@ class zcl_cmd_company implementation.
 
   method set_data.
     ref_data = i_company.
-    texts = new zsd_customer_texts( ref #( ref_data->texts ) ).
+    texts = new zcl_cmd_texts( ref #( ref_data->texts ) ).
     r_company = me.
   endmethod.
 

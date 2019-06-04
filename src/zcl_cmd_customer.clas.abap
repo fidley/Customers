@@ -27,7 +27,7 @@ class zcl_cmd_customer definition
         zcx_cmd_customer .
     methods save
       importing
-        !i_test_run          type abap_bool
+        !i_test_run          type abap_bool default abap_false
         !i_wait_after_commit type abap_bool default abap_false
       exporting
         !e_customer          type kna1-kunnr
@@ -150,11 +150,11 @@ class zcl_cmd_customer definition
           original_data type cmds_ei_extern.
 
 
-endclass.
+ENDCLASS.
 
 
 
-class zcl_cmd_customer implementation.
+CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
 
 
   method add_new_contact.
@@ -611,4 +611,4 @@ class zcl_cmd_customer implementation.
 *       _collect  = _collect    " Initially only collect lock
       .
   endmethod.
-endclass.
+ENDCLASS.

@@ -676,7 +676,7 @@ CLASS ZCL_CMD_ADDRESS IMPLEMENTATION.
 
   method SET_DATA.
     address = i_address.
-    remarks = new zsd_customer_remarks( ref #( address->remark ) ).
+    remarks = new zcl_cmd_remarks( ref #( address->remark ) ).
   endmethod.
 
 

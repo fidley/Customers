@@ -14,20 +14,20 @@ public section.
       value(I_LANGUAGE) type SPRAS
       value(I_TEXT) type TLINE_TAB
     raising
-      zcx_cmd_customers .
+      zcx_cmd_customer .
   methods CHANGE_TEXT
     importing
       value(I_ID) type TDID
       value(I_LANGUAGE) type SPRAS
       value(I_TEXT) type TLINE_TAB
     raising
-      zcx_cmd_customers .
+      zcx_cmd_customer .
   methods DELETE_TEXT
     importing
       value(I_ID) type TDID
       value(I_LANGUAGE) type SPRAS
     raising
-      zcx_cmd_customers .
+      zcx_cmd_customer .
   methods GET_TEXT
     importing
       value(I_ID) type TDID
@@ -35,7 +35,7 @@ public section.
     returning
       value(R_TEXT) type TLINE_TAB
     raising
-      zcx_cmd_customers .
+      zcx_cmd_customer .
   protected section.
   private section.
     data: ref_data type ref to cvis_ei_cvis_text.
@@ -56,7 +56,7 @@ CLASS ZCL_CMD_TEXTS IMPLEMENTATION.
                       task = zcl_cmd_util=>mode-create
                     ) into table ref_data->texts.
     else.
-      raise exception type zcx_cmd_customers
+      raise exception type zcx_cmd_customer
         exporting
           no = 007
           v1 = conv #( i_id ).
@@ -70,7 +70,7 @@ CLASS ZCL_CMD_TEXTS IMPLEMENTATION.
       <tx>-task = zcl_cmd_util=>mode-change.
       <tx>-data = i_text.
     else.
-      raise exception type zcx_cmd_customers
+      raise exception type zcx_cmd_customer
         exporting
           no = 008
           v1 = conv #( i_id ).
@@ -89,7 +89,7 @@ CLASS ZCL_CMD_TEXTS IMPLEMENTATION.
     if sy-subrc eq 0.
       <tx>-task = zcl_cmd_util=>mode-delete.
     else.
-      raise exception type zcx_cmd_customers
+      raise exception type zcx_cmd_customer
         exporting
           no = 008
           v1 = conv #( i_id ).
@@ -103,7 +103,7 @@ CLASS ZCL_CMD_TEXTS IMPLEMENTATION.
     if sy-subrc eq 0.
       r_text = <tx>-data.
     else.
-      raise exception type zcx_cmd_customers
+      raise exception type zcx_cmd_customer
         exporting
           no = 008
           v1 = conv #( i_id ).

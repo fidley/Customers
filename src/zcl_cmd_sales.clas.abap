@@ -2,7 +2,7 @@ class ZCL_CMD_SALES definition
   public
   create private
 
-  global friends zcl_cmd .
+  global friends zcl_cmd_customer .
 
 public section.
 
@@ -669,5 +669,4 @@ CLASS ZCL_CMD_SALES IMPLEMENTATION.
   method SET_ZTERM.
     ref_data->data-zterm = i_zterm. ref_data->datax-zterm = abap_true .
   endmethod.
-
 ENDCLASS.

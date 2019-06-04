@@ -1,63 +1,63 @@
-class ZCL_CMD_TAX_IND definition
+class zcl_cmd_tax_ind definition
   public
   final
   create private
 
-  global friends ZCL_CMD .
+  global friends zcl_cmd_customer.
 
-public section.
+  public section.
 
-  methods ADD_TAX_INDICATOR
-    importing
-      value(I_COUNTRY) type ALAND
-      value(I_CATEGORY) type TATYP
-      value(I_INDICATOR) type TAKLD
-    raising
-      zcx_cmd_customers .
-  methods CHANGE_TAX_INDICATOR
-    importing
-      value(I_COUNTRY) type ALAND
-      value(I_CATEGORY) type TATYP
-      value(I_INDICATOR) type TAKLD
-    raising
-      zcx_cmd_customers .
-  methods DELETE_TAX_INDICATOR
-    importing
-      value(I_COUNTRY) type ALAND
-      value(I_CATEGORY) type TATYP
-    raising
-      zcx_cmd_customers .
-  methods GET_TAX_INDICATOR
-    importing
-      value(I_COUNTRY) type ALAND
-      value(I_CATEGORY) type TATYP
-    returning
-      value(R_INDICATOR) type TAKLD
-    raising
-      zcx_cmd_customers .
+    methods add_tax_indicator
+      importing
+        value(i_country)   type aland
+        value(i_category)  type tatyp
+        value(i_indicator) type takld
+      raising
+        zcx_cmd_customer .
+    methods change_tax_indicator
+      importing
+        value(i_country)   type aland
+        value(i_category)  type tatyp
+        value(i_indicator) type takld
+      raising
+        zcx_cmd_customer .
+    methods delete_tax_indicator
+      importing
+        value(i_country)  type aland
+        value(i_category) type tatyp
+      raising
+        zcx_cmd_customer .
+    methods get_tax_indicator
+      importing
+        value(i_country)   type aland
+        value(i_category)  type tatyp
+      returning
+        value(r_indicator) type takld
+      raising
+        zcx_cmd_customer .
   protected section.
   private section.
     data: ref_data type ref to cmds_ei_cmd_tax_ind .
     methods constructor importing i_tax_ind type ref to cmds_ei_cmd_tax_ind.
 
-ENDCLASS.
+endclass.
 
 
 
-CLASS ZCL_CMD_TAX_IND IMPLEMENTATION.
+class zcl_cmd_tax_ind implementation.
 
 
-  method ADD_TAX_INDICATOR.
+  method add_tax_indicator.
 
     assign ref_data->tax_ind[ data_key-aland = i_country data_key-tatyp = i_category ] to field-symbol(<tax>).
     if sy-subrc ne 0.
-      insert value #( task = ZCL_CMD_util=>mode-create
+      insert value #( task = zcl_cmd_util=>mode-create
                       data_key-aland = i_country
                       data_key-tatyp = i_category
                       data-taxkd     = i_indicator
                     ) into table ref_data->tax_ind.
     else.
-      raise exception type zcx_cmd_customers
+      raise exception type zcx_cmd_customer
         exporting
           no = 012
           v1 = conv #( i_country )
@@ -67,14 +67,14 @@ CLASS ZCL_CMD_TAX_IND IMPLEMENTATION.
   endmethod.
 
 
-  method CHANGE_TAX_INDICATOR.
+  method change_tax_indicator.
 
     assign ref_data->tax_ind[ data_key-aland = i_country data_key-tatyp = i_category ] to field-symbol(<tax>).
     if sy-subrc eq 0.
-      <tax>-task = ZCL_CMD_util=>mode-change.
+      <tax>-task = zcl_cmd_util=>mode-change.
       <tax>-data-taxkd = i_indicator.
     else.
-      raise exception type zcx_cmd_customers
+      raise exception type zcx_cmd_customer
         exporting
           no = 011
           v1 = conv #( i_country )
@@ -84,18 +84,18 @@ CLASS ZCL_CMD_TAX_IND IMPLEMENTATION.
   endmethod.
 
 
-  method CONSTRUCTOR.
+  method constructor.
     ref_data = i_tax_ind.
   endmethod.
 
 
-  method DELETE_TAX_INDICATOR.
+  method delete_tax_indicator.
 
     assign ref_data->tax_ind[ data_key-aland = i_country data_key-tatyp = i_category ] to field-symbol(<tax>).
     if sy-subrc eq 0.
-      <tax>-task = ZCL_CMD_util=>mode-delete.
+      <tax>-task = zcl_cmd_util=>mode-delete.
     else.
-      raise exception type zcx_cmd_customers
+      raise exception type zcx_cmd_customer
         exporting
           no = 011
           v1 = conv #( i_country )
@@ -105,13 +105,13 @@ CLASS ZCL_CMD_TAX_IND IMPLEMENTATION.
   endmethod.
 
 
-  method GET_TAX_INDICATOR.
+  method get_tax_indicator.
 
     assign ref_data->tax_ind[ data_key-aland = i_country data_key-tatyp = i_category ] to field-symbol(<tax>).
     if sy-subrc eq 0.
       r_indicator = <tax>-data-taxkd.
     else.
-      raise exception type zcx_cmd_customers
+      raise exception type zcx_cmd_customer
         exporting
           no = 011
           v1 = conv #( i_country )
@@ -119,4 +119,4 @@ CLASS ZCL_CMD_TAX_IND IMPLEMENTATION.
     endif.
 
   endmethod.
-ENDCLASS.
+endclass.

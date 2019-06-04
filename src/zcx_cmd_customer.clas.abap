@@ -1,46 +1,65 @@
-class ZCX_CMD_CUSTOMER definition
+class zcx_cmd_customer definition
   public
-  inheriting from CX_STATIC_CHECK
+  inheriting from cx_static_check
   create public .
 
-public section.
+  public section.
 
-  interfaces IF_T100_MESSAGE .
+    interfaces if_t100_message .
 
-  constants MESSAGE_CLASS type SY-MSGID value 'Z_CMD_CUSTOMER' ##NO_TEXT.
+    constants message_class type sy-msgid value 'Z_CMD_CUSTOMER' ##NO_TEXT.
 
-  methods CONSTRUCTOR
-    importing
-      !TEXTID like IF_T100_MESSAGE=>T100KEY optional
-      !PREVIOUS like PREVIOUS optional .
-  methods GET_MESSAGES
-    returning
-      value(R_MESSAGES) type BAPIRET2_T .
+    methods constructor
+      importing
+        !id       like if_t100_message=>t100key-msgid default message_class
+        !no       like if_t100_message=>t100key-msgno default 666
+        !v1       like if_t100_message=>t100key-attr1 optional
+        !v2       like if_t100_message=>t100key-attr2 optional
+        !v3       like if_t100_message=>t100key-attr3 optional
+        !v4       like if_t100_message=>t100key-attr4 optional
+        !messages type bapiret2_t optional
+        !previous like previous optional .
+    methods get_messages
+      returning
+        value(r_messages) type bapiret2_t .
   protected section.
   private section.
     data: messages type bapiret2_t.
-ENDCLASS.
+endclass.
 
 
 
-CLASS ZCX_CMD_CUSTOMER IMPLEMENTATION.
+class zcx_cmd_customer implementation.
 
 
-  method CONSTRUCTOR.
-CALL METHOD SUPER->CONSTRUCTOR
-EXPORTING
-PREVIOUS = PREVIOUS
-.
-clear me->textid.
-if textid is initial.
-  IF_T100_MESSAGE~T100KEY = IF_T100_MESSAGE=>DEFAULT_TEXTID.
-else.
-  IF_T100_MESSAGE~T100KEY = TEXTID.
-endif.
+  method constructor ##ADT_SUPPRESS_GENERATION.
+    call method super->constructor
+      exporting
+        previous = previous.
+
+    clear textid.
+    if id is initial.
+      if_t100_message~t100key-msgid = message_class.
+    else.
+      if_t100_message~t100key-msgid = id.
+    endif.
+    if no is not supplied.
+      if_t100_message~t100key-msgno = 666.
+    else.
+      if_t100_message~t100key-msgno = no.
+    endif.
+
+    if_t100_message~t100key-attr1 = v1.
+    if_t100_message~t100key-attr2 = v2.
+    if_t100_message~t100key-attr3 = v3.
+    if_t100_message~t100key-attr4 = v4.
+
+    if messages is not initial.
+      me->messages = messages.
+    endif.
+
   endmethod.
-
-
-  method GET_MESSAGES.
+  method get_messages.
     if messages is not initial.
       r_messages = messages.
     else.
@@ -62,4 +81,4 @@ endif.
 
     endif.
   endmethod.
-ENDCLASS.
+endclass.
