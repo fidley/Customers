@@ -1,6 +1,5 @@
 class ZCL_CMD_CENTRAL definition
   public
-  final
   create private
 
   global friends zcl_cmd_customer.

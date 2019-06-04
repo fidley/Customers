@@ -1,6 +1,5 @@
 class ZCL_CMD_ADDRESS definition
   public
-  final
   create private
 
   global friends ZCL_CMD_CUSTOMER .

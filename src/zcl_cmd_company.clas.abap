@@ -1,6 +1,5 @@
 class zcl_cmd_company definition
   public
-  final
   create private
 
   global friends zcl_cmd_customer .

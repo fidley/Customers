@@ -1,6 +1,5 @@
 class ZCL_CMD_TEXTS definition
   public
-  final
   create public .
 
 public section.
