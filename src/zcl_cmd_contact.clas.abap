@@ -9,7 +9,7 @@ public section.
   data CONTACT type KNVP-PARNR read-only .
   data CUSTOMER type KNVP-KUNNR .
   data MODE type zcl_cmd_util=>T_MODE read-only .
-  data TEXTS type ref to ZSD_CUSTOMER_TEXTS .
+  data TEXTS type ref to ZCL_CMD_TEXTS .
 
   methods CONSTRUCTOR
     importing
@@ -1976,7 +1976,7 @@ CLASS ZCL_CMD_CONTACT IMPLEMENTATION.
 
   method SET_DATA.
     ref_data = i_full_data.
-    texts = new zsd_customer_texts( ref #( ref_data->contact_texts ) ).
+    texts = new zcl_cmd_texts( ref #( ref_data->contact_texts ) ).
     if ref_data->data_key-parnr is initial.
       ref_data->data_key-parnr = contact.
     endif.
