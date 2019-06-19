@@ -1,68 +1,69 @@
-class ZCL_CMD_UTIL definition
+class zcl_cmd_util definition
   public
   final
   create public .
 
-public section.
+  public section.
 
-  types:    "! Mode for actions
-    t_mode type c length 1 .
+    types:    "! Mode for actions
+      t_mode type c length 1 .
 
-  constants:
-    begin of mode,
-                 create        type t_mode value 'I',
-                 change        type t_mode value 'U',
-                 modify        type t_mode value 'M',
-                 delete        type t_mode value 'D',
-                 current_state type t_mode value 'X',
-                 undelete      type t_mode value 'R',
-               end of mode .
-  constants:
-    begin of phone_type,
-                 fixed          type bapiadtel-r_3_user value '',
-                 fixed_default  type bapiadtel-r_3_user value 1,
-                 mobile         type bapiadtel-r_3_user value 2,
-                 mobile_default type bapiadtel-r_3_user value 3,
-               end of phone_type .
-  constants:
-    begin of gender,
-                 male   type c value '1',
-                 female type c value '2',
-               end of gender .
+    constants:
+      begin of mode,
+        create        type t_mode value 'I',
+        change        type t_mode value 'U',
+        modify        type t_mode value 'M',
+        delete        type t_mode value 'D',
+        current_state type t_mode value 'X',
+        undelete      type t_mode value 'R',
+      end of mode .
+    constants:
+      begin of phone_type,
+        fixed          type bapiadtel-r_3_user value '',
+        fixed_default  type bapiadtel-r_3_user value 1,
+        mobile         type bapiadtel-r_3_user value 2,
+        mobile_default type bapiadtel-r_3_user value 3,
+      end of phone_type .
+    constants:
+      begin of gender,
+        male   type c value '1',
+        female type c value '2',
+      end of gender .
 
-  class-methods COMMIT_WORK
-    importing
-      !I_WAIT type BAPITA-WAIT optional
-    raising
-      zcx_cmd_customer .
-  class-methods ROLLBACK_WORK .
-  class-methods SET_DATAX_STRUCTURE
-    importing
-      !I_SOURCE type ANY
-    changing
-      !C_TARGET type ANY .
+    class-methods commit_work
+      importing
+        !i_wait type bapita-wait optional
+      raising
+        zcx_cmd_customer .
+    class-methods rollback_work .
+    class-methods set_datax_structure
+      importing
+        !i_source type any
+      changing
+        !c_target type any .
+
   protected section.
   private section.
-ENDCLASS.
+endclass.
 
 
 
-CLASS ZCL_CMD_UTIL IMPLEMENTATION.
+class zcl_cmd_util implementation.
 
 
-  method COMMIT_WORK.
+  method commit_work.
     call function 'BAPI_TRANSACTION_COMMIT'
       exporting
         wait = i_wait.
   endmethod.
 
 
-  method ROLLBACK_WORK.
+  method rollback_work.
     call function 'BAPI_TRANSACTION_ROLLBACK'.
   endmethod.
 
 
-  method SET_DATAX_STRUCTURE.
+  method set_datax_structure.
     field-symbols: <src> type any,
                    <tar> type any.
     if i_source is not initial.
@@ -81,4 +82,6 @@ CLASS ZCL_CMD_UTIL IMPLEMENTATION.
       enddo.
     endif.
   endmethod.
-ENDCLASS.
+
+
+endclass.

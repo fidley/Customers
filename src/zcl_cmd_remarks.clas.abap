@@ -1,38 +1,41 @@
-class ZCL_CMD_REMARKS definition
+class zcl_cmd_remarks definition
   public
-  create public .
+  create protected .
 
-public section.
+  public section.
 
-  methods CONSTRUCTOR
-    importing
-      !I_DATA type ref to CVIS_EI_CVI_REM .
-  methods ADD_REMARK
-    importing
-      value(I_REMARK) type AD_REMARK1
-      value(I_LANGUAGE) type SPRAS default SY-LANGU
-      value(I_LANGUAGE_ISO) type SPRAS_ISO optional .
-  methods DELETE_REMARK
-    importing
-      value(I_REMARK) type AD_REMARK1
-      value(I_LANGUAGE) type SPRAS optional
-      value(I_LANGUAGE_ISO) type SPRAS_ISO optional .
-  methods CHANGE_REMARK
-    importing
-      value(I_REMARK) type AD_REMARK1
-      value(I_LANGUAGE) type SPRAS default SY-LANGU
-      value(I_LANGUAGE_ISO) type SPRAS_ISO optional .
+    class-methods: create_instance importing i_extension_id   type guid_32
+                                             i_data           type ref to cvis_ei_cvi_rem
+                                   returning value(r_remarks) type ref to zcl_cmd_remarks.
+
+    methods add_remark
+      importing
+        value(i_remark)       type ad_remark1
+        value(i_language)     type spras default sy-langu
+        value(i_language_iso) type spras_iso optional .
+    methods delete_remark
+      importing
+        value(i_remark)       type ad_remark1
+        value(i_language)     type spras optional
+        value(i_language_iso) type spras_iso optional .
+    methods change_remark
+      importing
+        value(i_remark)       type ad_remark1
+        value(i_language)     type spras default sy-langu
+        value(i_language_iso) type spras_iso optional .
   protected section.
-  private section.
     data: ref_data type ref to cvis_ei_cvi_rem.
-ENDCLASS.
+    methods constructor
+      importing
+        !i_data type ref to cvis_ei_cvi_rem .
+endclass.
 
 
 
-CLASS ZCL_CMD_REMARKS IMPLEMENTATION.
+class zcl_cmd_remarks implementation.
 
 
-  method ADD_REMARK.
+  method add_remark.
     if i_language_iso is not initial.
       assign ref_data->remarks[ data-langu_iso = i_language_iso ] to field-symbol(<rem>).
     elseif i_language is not initial.
@@ -40,9 +43,9 @@ CLASS ZCL_CMD_REMARKS IMPLEMENTATION.
     endif.
     if <rem> is not assigned.
       if i_language_iso is not initial.
-        insert value #( task = ZCL_CMD_util=>mode-create data-langu_iso = i_language_iso  data-adr_notes = i_remark ) into table ref_data->remarks.
+        insert value #( task = zcl_cmd_util=>mode-create data-langu_iso = i_language_iso  data-adr_notes = i_remark ) into table ref_data->remarks.
       elseif i_language is not initial.
-        insert value #( task = ZCL_CMD_util=>mode-create data-langu = i_language  data-adr_notes = i_remark ) into table ref_data->remarks.
+        insert value #( task = zcl_cmd_util=>mode-create data-langu = i_language  data-adr_notes = i_remark ) into table ref_data->remarks.
       endif.
     else.
       change_remark(
@@ -55,7 +58,7 @@ CLASS ZCL_CMD_REMARKS IMPLEMENTATION.
   endmethod.
 
 
-  method CHANGE_REMARK.
+  method change_remark.
     if i_language_iso is not initial.
       assign ref_data->remarks[ data-langu_iso = i_language_iso ] to field-symbol(<rem>).
     elseif i_language is not initial.
@@ -72,26 +75,43 @@ CLASS ZCL_CMD_REMARKS IMPLEMENTATION.
       endif.
     endif.
     if <rem> is assigned.
-      <rem>-task = ZCL_CMD_util=>mode-change.
+      <rem>-task = zcl_cmd_util=>mode-change.
       <rem>-data-adr_notes = i_remark.
     endif.
 
   endmethod.
 
 
-  method CONSTRUCTOR.
+  method constructor.
     ref_data = i_data.
   endmethod.
 
 
-  method DELETE_REMARK.
+  method delete_remark.
     if i_language_iso is not initial.
       assign ref_data->remarks[ data-langu_iso = i_language_iso ] to field-symbol(<rem>).
     elseif i_language is not initial.
       assign ref_data->remarks[ data-langu = i_language ] to <rem>.
     endif.
     if <rem> is  assigned.
-      <rem>-task = ZCL_CMD_util=>mode-delete.
+      <rem>-task = zcl_cmd_util=>mode-delete.
     endif.
   endmethod.
-ENDCLASS.
+  method create_instance.
+    if i_extension_id is initial.
+      r_remarks = new #( i_data = i_data ).
+    else.
+      data: subclass type ref to object.
+      try.
+          data(sublcass_abs_name) = zcl_cmd_extensions=>get_extension_class_abs_name( id = i_extension_id type = zcl_cmd_extensions=>class_extension-remarks ).
+          create object subclass type (sublcass_abs_name)
+           exporting
+            i_data       = i_data.
+          r_remarks ?= subclass.
+        catch zcx_cmd_no_extension.
+        r_remarks = new #( i_data = i_data ).
+      endtry.
+    endif.
+  endmethod.
+
+endclass.

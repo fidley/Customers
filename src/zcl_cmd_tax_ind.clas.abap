@@ -1,11 +1,11 @@
 class zcl_cmd_tax_ind definition
   public
-  create private
-
-  global friends zcl_cmd_customer.
+  create protected.
 
   public section.
-
+    class-methods: create_instance importing i_extension_id type guid_32
+                                             i_tax_ind      type ref to cmds_ei_cmd_tax_ind
+                                   returning value(r_tax)   type ref to zcl_cmd_tax_ind.
     methods add_tax_indicator
       importing
         value(i_country)   type aland
@@ -35,7 +35,6 @@ class zcl_cmd_tax_ind definition
       raising
         zcx_cmd_customer .
   protected section.
-  private section.
     data: ref_data type ref to cmds_ei_cmd_tax_ind .
     methods constructor importing i_tax_ind type ref to cmds_ei_cmd_tax_ind.
 
@@ -118,4 +117,21 @@ class zcl_cmd_tax_ind implementation.
     endif.
 
   endmethod.
+  method create_instance.
+    if i_extension_id is initial.
+      r_tax = new #( i_tax_ind = i_tax_ind ).
+    else.
+      data: subclass type ref to object.
+      try.
+          data(sublcass_abs_name) = zcl_cmd_extensions=>get_extension_class_abs_name( id = i_extension_id type = zcl_cmd_extensions=>class_extension-tax_ind ).
+          create object subclass type (sublcass_abs_name)
+           exporting
+            i_tax_ind       = i_tax_ind.
+          r_tax ?= subclass.
+        catch zcx_cmd_no_extension.
+          r_tax = new #( i_tax_ind = i_tax_ind ).
+      endtry.
+    endif.
+  endmethod.
+
 endclass.

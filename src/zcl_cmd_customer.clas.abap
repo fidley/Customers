@@ -10,11 +10,13 @@ class zcl_cmd_customer definition
     data address type ref to zcl_cmd_address .
     data vat type ref to zcl_cmd_vat .
     data texts type ref to zcl_cmd_texts .
+    data: extension_id type guid_32 read-only.
     data tax_indicator type ref to zcl_cmd_tax_ind .
 
     methods constructor
       importing
         value(i_customer) type kna1-kunnr optional
+        value(i_extension_classes) type zcl_cmd_extensions=>tt_extension_classes optional
       raising
         zcx_cmd_customer .
     "! Gets all customer data from DB and store it in CMD_EI_API structure
@@ -144,10 +146,9 @@ class zcl_cmd_customer definition
     data: master_data type cmds_ei_extern.
     methods: lock raising zcx_cmd_customer.
     methods: unlock raising zcx_cmd_customer.
-  private section.
-
     data: "! Kept only when get_data is used to be able to compare later new and old data
           original_data type cmds_ei_extern.
+
 
 
 ENDCLASS.
@@ -159,7 +160,8 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
 
   method add_new_contact.
     try.
-        r_contact = new zcl_cmd_contact( i_customer = customer ).
+        r_contact ?= zcl_cmd_contact=>create_instance( i_extension_id = extension_id
+                                                       i_customer = customer ).
         insert initial line into table master_data-central_data-contact-contacts reference into data(cont).
         if sy-subrc eq 0.
           r_contact->set_data( cont ).
@@ -175,7 +177,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
     assign master_data-company_data-company[ data_key-bukrs = i_company_code
                                                                       ] to field-symbol(<company>).
     if sy-subrc eq 0.
-      r_company = new zcl_cmd_company( ).
+      r_company ?= zcl_cmd_company=>create_instance( i_extension_id = extension_id ).
       r_company->set_data( ref #( <company> ) ).
       r_company->set_task( zcl_cmd_util=>mode-change ).
     else.
@@ -191,8 +193,9 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
   method change_contact.
     check i_contact is not initial.
     try.
-        r_contact = new zcl_cmd_contact( i_customer = customer
-                                              i_contact  = i_contact ).
+        r_contact ?= zcl_cmd_contact=>create_instance( i_extension_id = extension_id
+                                                       i_customer = customer
+                                                       i_contact  = i_contact ).
         assign master_data-central_data-contact-contacts[ data_key-parnr = i_contact ] to field-symbol(<cont>).
         if sy-subrc eq 0.
           r_contact->set_data( ref #( <cont> ) ).
@@ -220,7 +223,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
                                          data_key-spart = i_division
                                                                       ] to field-symbol(<sales>).
     if sy-subrc eq 0.
-      r_sales = new zcl_cmd_sales( ).
+      r_sales ?= zcl_cmd_sales=>create_instance( i_extension_id = extension_id ).
       r_sales->set_data( ref #( <sales> ) ).
       r_sales->set_task( zcl_cmd_util=>mode-change ).
     else.
@@ -237,6 +240,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
 
   method constructor.
     customer = i_customer.
+    extension_id = zcl_cmd_extensions=>set_extensions( extensions = i_extension_classes ).
     if customer is initial or customer co '0'.
       mode = zcl_cmd_util=>mode-create.
       master_data-header-object_task = zcl_cmd_util=>mode-create.
@@ -249,13 +253,14 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
       endif.
       get_data( ).
     endif.
-    central = new zcl_cmd_central( i_data = ref #( master_data-central_data-central-data )
+
+    central ?= zcl_cmd_central=>create_instance( i_extension_id = extension_id i_data = ref #( master_data-central_data-central-data )
                                         i_datax = ref #( master_data-central_data-central-datax ) ).
-    address = new zcl_cmd_address( ).
+    address ?= zcl_cmd_address=>create_instance( i_extension_id = extension_id ).
     address->set_data( ref #( master_data-central_data-address ) ).
-    texts = new zcl_cmd_texts( ref #( master_data-central_data-text )  ).
-    vat   = new zcl_cmd_vat( ref #( master_data-central_data-vat_number ) ).
-    tax_indicator = new zcl_cmd_tax_ind(  ref #( master_data-central_data-tax_ind ) ).
+    texts ?= zcl_cmd_texts=>create_instance( i_extension_id = extension_id i_texts =  ref #( master_data-central_data-text )  ).
+    vat   ?=  zcl_cmd_vat=>create_instance( i_extension_id = extension_id i_vat =  ref #( master_data-central_data-vat_number ) ).
+    tax_indicator ?= zcl_cmd_tax_ind=>create_instance( i_extension_id = extension_id i_tax_ind = ref #( master_data-central_data-tax_ind ) ).
   endmethod.
 
 
@@ -268,7 +273,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
                       data_key-bukrs = i_company_code
                     ) into table master_data-company_data-company reference into data(company).
       if sy-subrc eq 0.
-        r_company = new zcl_cmd_company( ).
+        r_company ?= zcl_cmd_company=>create_instance( i_extension_id = extension_id ).
         r_company->set_data( company ).
       endif.
     else.
@@ -287,7 +292,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
                                          data_key-spart = i_division
                                                                       ] to field-symbol(<sales>).
     if sy-subrc ne 0.
-      r_sales = new zcl_cmd_sales( ).
+      r_sales ?= zcl_cmd_sales=>create_instance( i_extension_id = extension_id ).
       insert value #( data_key-vkorg = i_sales_org
                       data_key-vtweg = i_distr_channel
                       data_key-spart = i_division
@@ -313,7 +318,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
     assign master_data-company_data-company[ data_key-bukrs = i_company_code
                                                                       ] to field-symbol(<company>).
     if sy-subrc eq 0.
-      r_company = new zcl_cmd_company( ).
+      r_company ?= zcl_cmd_company=>create_instance( i_extension_id = extension_id ).
       r_company->set_data( ref #( <company> ) ).
       r_company->set_loevm( abap_true ).
       r_company->set_task( zcl_cmd_util=>mode-change ).
@@ -330,8 +335,9 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
   method delete_contact.
     check i_contact is not initial.
     try.
-        r_contact = new zcl_cmd_contact( i_customer = customer
-                                                    i_contact  = i_contact ).
+        r_contact ?= zcl_cmd_contact=>create_instance( i_extension_id = extension_id
+                                                       i_customer = customer
+                                                       i_contact  = i_contact ).
         assign master_data-central_data-contact-contacts[ data_key-parnr = i_contact ] to field-symbol(<cont>).
         if sy-subrc eq 0.
           " This is needed as in other case contact data are deleted in internal table
@@ -368,7 +374,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
                                          data_key-spart = i_division
                                                                       ] to field-symbol(<sales>).
     if sy-subrc eq 0.
-      r_sales = new zcl_cmd_sales( ).
+      r_sales ?= zcl_cmd_sales=>create_instance( i_extension_id = extension_id ).
       r_sales->set_data( ref #( <sales> ) ).
       r_sales->set_loevm( abap_true ).
       r_sales->set_task( zcl_cmd_util=>mode-change ).
@@ -388,7 +394,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
     assign master_data-company_data-company[ data_key-bukrs = i_company_code
                                                                          ] to field-symbol(<company>).
     if sy-subrc eq 0.
-      r_company = new zcl_cmd_company( ).
+      r_company ?= zcl_cmd_company=>create_instance( i_extension_id = extension_id ).
       r_company->set_data( ref #( <company> ) ).
     else.
       raise exception type zcx_cmd_customer
@@ -402,9 +408,9 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
   method get_contact.
 
     try.
-        r_contact = new zcl_cmd_contact( i_customer = customer
-                                              i_contact  = i_contact
-                                                         ).
+        r_contact ?= zcl_cmd_contact=>create_instance( i_extension_id = extension_id
+                                                       i_customer = customer
+                                                       i_contact  = i_contact ).
         assign master_data-central_data-contact-contacts[ data_key-parnr = i_contact ] to field-symbol(<cont>).
         if sy-subrc eq 0.
           r_contact->set_data( ref #( <cont> ) ).
@@ -434,9 +440,9 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
                                                          ] to field-symbol(<cont>).
     if sy-subrc eq 0.
       try.
-          r_contact = new zcl_cmd_contact( i_customer = customer
-                                                            i_contact  = <cont>-data_key-parnr
-                                                           ).
+        r_contact ?= zcl_cmd_contact=>create_instance( i_extension_id = extension_id
+                                                       i_customer = customer
+                                                       i_contact  = <cont>-data_key-parnr ).
           r_contact->set_data( ref #( <cont> ) ).
           r_contact->set_mode( zcl_cmd_util=>mode-change ).
         catch zcx_cmd_customer into data(e).
@@ -491,7 +497,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
                                          data_key-spart = i_division
                                                                       ] to field-symbol(<sales>).
     if sy-subrc eq 0.
-      r_sales = new zcl_cmd_sales( ).
+      r_sales ?= zcl_cmd_sales=>create_instance( i_extension_id = extension_id ).
       r_sales->set_data( ref #( <sales> ) ).
     else.
       raise exception type zcx_cmd_customer
@@ -611,4 +617,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
 *       _collect  = _collect    " Initially only collect lock
       .
   endmethod.
+
+
+
 ENDCLASS.

@@ -1,295 +1,296 @@
 class zcl_cmd_company definition
   public
-  create private
-
-  global friends zcl_cmd_customer .
+  create protected.
 
   public section.
 
     data texts type ref to zcl_cmd_texts .
-
+    data: extension_id type guid_32 read-only.
+    class-methods: create_instance importing i_extension_id   type guid_32
+                                   returning value(r_company) type ref to zcl_cmd_company.
     methods get_data
       returning value(r_company) type ref to cmds_ei_company.
 
     methods set_task
       importing
-                value(i_task) type zcl_cmd_util=>t_mode
-      returning value(r_company)   type ref to zcl_cmd_company.
+                value(i_task)    type zcl_cmd_util=>t_mode
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_data
       importing
-                !i_company  type ref to cmds_ei_company
+                !i_company       type ref to cmds_ei_company
       returning value(r_company) type ref to zcl_cmd_company.
     methods set_sperr
       importing
-                value(i_sperr) type sperb_b
-      returning value(r_company)    type ref to zcl_cmd_company .
+                value(i_sperr)   type sperb_b
+      returning value(r_company) type ref to zcl_cmd_company .
     methods set_loevm
       importing
-                value(i_loevm) type loevm_b
-      returning value(r_company)    type ref to zcl_cmd_company .
+                value(i_loevm)   type loevm_b
+      returning value(r_company) type ref to zcl_cmd_company .
     methods set_zuawa
       importing
-                value(i_zuawa) type dzuawa
-      returning value(r_company)    type ref to zcl_cmd_company .
+                value(i_zuawa)   type dzuawa
+      returning value(r_company) type ref to zcl_cmd_company .
     methods set_akont
       importing
-                value(i_akont) type akont
-      returning value(r_company)    type ref to zcl_cmd_company .
+                value(i_akont)   type akont
+      returning value(r_company) type ref to zcl_cmd_company .
     methods set_begru
       importing
-                value(i_begru) type brgru
-      returning value(r_company)    type ref to zcl_cmd_company .
+                value(i_begru)   type brgru
+      returning value(r_company) type ref to zcl_cmd_company .
     methods set_vzskz
       importing
-                value(i_vzskz) type vzskz
-      returning value(r_company)    type ref to zcl_cmd_company .
+                value(i_vzskz)   type vzskz
+      returning value(r_company) type ref to zcl_cmd_company .
     methods set_zwels
       importing
-                value(i_zwels) type dzwels
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zwels)   type dzwels
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_xverr
       importing
-                value(i_xverr) type xverr_knb1
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_xverr)   type xverr_knb1
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zahls
       importing
-                value(i_zahls) type dzahls
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zahls)   type dzahls
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zterm
       importing
-                value(i_zterm) type dzterm
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zterm)   type dzterm
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_eikto
       importing
-                value(i_eikto) type eikto
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_eikto)   type eikto
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zsabe
       importing
-                value(i_zsabe) type dzsabe_k
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zsabe)   type dzsabe_k
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_kverm
       importing
-                value(i_kverm) type kverm
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_kverm)   type kverm
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_fdgrv
       importing
-                value(i_fdgrv) type fdgrv
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_fdgrv)   type fdgrv
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_busab
       importing
-                value(i_busab) type busab
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_busab)   type busab
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zindt
       importing
-                value(i_zindt) type dzindt
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zindt)   type dzindt
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zinrt
       importing
-                value(i_zinrt) type dzinrt
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zinrt)   type dzinrt
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_datlz
       importing
-                value(i_datlz) type datlz
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_datlz)   type datlz
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_xdezv
       importing
-                value(i_xdezv) type xdezv
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_xdezv)   type xdezv
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_webtr
       importing
-                value(i_webtr) type webtr
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_webtr)   type webtr
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_kultg
       importing
-                value(i_kultg) type kultg
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_kultg)   type kultg
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_togru
       importing
-                value(i_togru) type togru
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_togru)   type togru
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_hbkid
       importing
-                value(i_hbkid) type hbkid
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_hbkid)   type hbkid
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_xpore
       importing
-                value(i_xpore) type xpore
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_xpore)   type xpore
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_blnkz
       importing
-                value(i_blnkz) type blnkz
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_blnkz)   type blnkz
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_altkn
       importing
-                value(i_altkn) type altkn
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_altkn)   type altkn
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zgrup
       importing
-                value(i_zgrup) type dzgrup
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zgrup)   type dzgrup
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_urlid
       importing
-                value(i_urlid) type urlid
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_urlid)   type urlid
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_mgrup
       importing
-                value(i_mgrup) type mgrup
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_mgrup)   type mgrup
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_uzawe
       importing
-                value(i_uzawe) type uzawe
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_uzawe)   type uzawe
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_xedip
       importing
-                value(i_xedip) type xedip
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_xedip)   type xedip
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_frgrp
       importing
-                value(i_frgrp) type frgrp
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_frgrp)   type frgrp
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_vrsdg
       importing
-                value(i_vrsdg) type vrsdg
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_vrsdg)   type vrsdg
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_tlfxs
       importing
-                value(i_tlfxs) type tlfxs
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_tlfxs)   type tlfxs
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_intad
       importing
-                value(i_intad) type intad
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_intad)   type intad
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_guzte
       importing
-                value(i_guzte) type guzte
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_guzte)   type guzte
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_gricd
       importing
-                value(i_gricd) type j_1agicd_d
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_gricd)   type j_1agicd_d
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_gridt
       importing
-                value(i_gridt) type j_1adtyp_d
-      returning value(r_company)    type ref to zcl_cmd_company .
+                value(i_gridt)   type j_1adtyp_d
+      returning value(r_company) type ref to zcl_cmd_company .
     methods set_xausz
       importing
-                value(i_xausz) type xausz
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_xausz)   type xausz
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_pernr
       importing
-                value(i_pernr) type pernr_d
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_pernr)   type pernr_d
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_nodel
       importing
-                value(i_nodel) type nodel_b
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_nodel)   type nodel_b
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_tlfns
       importing
-                value(i_tlfns) type tlfns
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_tlfns)   type tlfns
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_knrze
       importing
-                value(i_knrze) type knrze
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_knrze)   type knrze
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_knrzb
       importing
-                value(i_knrzb) type knrzb
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_knrzb)   type knrzb
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zamim
       importing
-                value(i_zamim) type dzamim
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zamim)   type dzamim
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zamiv
       importing
-                value(i_zamiv) type dzamiv
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zamiv)   type dzamiv
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zamir
       importing
-                value(i_zamir) type dzamir
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zamir)   type dzamir
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zamib
       importing
-                value(i_zamib) type dzamib
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zamib)   type dzamib
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_zamio
       importing
-                value(i_zamio) type dzamio
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_zamio)   type dzamio
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_wakon
       importing
-                value(i_wakon) type wakon
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_wakon)   type wakon
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_vrbkz
       importing
-                value(i_vrbkz) type vrbkz
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_vrbkz)   type vrbkz
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_vlibb
       importing
-                value(i_vlibb) type vlibb
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_vlibb)   type vlibb
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_vrszl
       importing
-                value(i_vrszl) type vrszl
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_vrszl)   type vrszl
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_vrspr
       importing
-                value(i_vrspr) type vrspr
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_vrspr)   type vrspr
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_vrsnr
       importing
-                value(i_vrsnr) type vrsnr
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_vrsnr)   type vrsnr
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_verdt
       importing
-                value(i_verdt) type verdt
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_verdt)   type verdt
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_perkz
       importing
-                value(i_perkz) type perkz_knb1
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_perkz)   type perkz_knb1
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_remit
       importing
-                value(i_remit) type remit
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_remit)   type remit
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_xzver
       importing
-                value(i_xzver) type xzver
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_xzver)   type xzver
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_ekvbd
       importing
-                value(i_ekvbd) type ekvbd
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_ekvbd)   type ekvbd
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_sregl
       importing
-                value(i_sregl) type sregl
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_sregl)   type sregl
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_xknzb
       importing
-                value(i_xknzb) type xknzb
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_xknzb)   type xknzb
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_lockb
       importing
-                value(i_lockb) type lockb
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_lockb)   type lockb
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_wbrsl
       importing
-                value(i_wbrsl) type wbrsl
-      returning value(r_company)    type ref to zcl_cmd_company.
+                value(i_wbrsl)   type wbrsl
+      returning value(r_company) type ref to zcl_cmd_company.
     methods set_cession_kz
       importing
                 value(i_cession_kz) type cession_kz
-      returning value(r_company)         type ref to zcl_cmd_company.
+      returning value(r_company)    type ref to zcl_cmd_company.
     methods set_cvp_xblck_b
       importing
                 value(i_cvp_xblck_b) type cvp_xblck
-      returning value(r_company)          type ref to zcl_cmd_company.
+      returning value(r_company)     type ref to zcl_cmd_company.
     methods set_ciiucode
       importing
                 value(i_ciiucode) type ciiucode
-      returning value(r_company)       type ref to zcl_cmd_company.
+      returning value(r_company)  type ref to zcl_cmd_company.
   protected section.
-  private section.
     data: ref_data type ref to cmds_ei_company.
+    methods: constructor importing i_extension_id type guid_32 optional.
+
 
 endclass.
 
@@ -348,7 +349,7 @@ class zcl_cmd_company implementation.
 
   method set_data.
     ref_data = i_company.
-    texts = new zcl_cmd_texts( ref #( ref_data->texts ) ).
+    texts ?= zcl_cmd_texts=>create_instance( i_extension_id = extension_id i_texts = ref #( ref_data->texts ) ).
     r_company = me.
   endmethod.
 
@@ -713,6 +714,27 @@ class zcl_cmd_company implementation.
   endmethod.
   method get_data.
     r_company = ref_data.
+  endmethod.
+
+  method create_instance.
+    if i_extension_id is initial.
+      r_company = new #(  ).
+    else.
+      data: subclass type ref to object.
+      try.
+          data(sublcass_abs_name) = zcl_cmd_extensions=>get_extension_class_abs_name( id = i_extension_id type = zcl_cmd_extensions=>class_extension-company ).
+          create object subclass type (sublcass_abs_name)
+           exporting
+            i_extension_id  = i_extension_id.
+          r_company ?= subclass.
+        catch zcx_cmd_no_extension.
+          r_company = new #(  ).
+      endtry.
+    endif.
+  endmethod.
+
+  method constructor.
+    extension_id = i_extension_id.
   endmethod.
 
 endclass.

@@ -1,10 +1,11 @@
 class zcl_cmd_vat definition
   public
-  create private
-
-  global friends zcl_cmd_customer .
+  create protected.
 
   public section.
+    class-methods: create_instance importing i_extension_id type guid_32
+                                             i_vat          type ref to cvis_ei_vat_numbers
+                                   returning value(r_vat)   type ref to zcl_cmd_vat.
 
     methods add_vat_number
       importing
@@ -31,7 +32,6 @@ class zcl_cmd_vat definition
       raising
         zcx_cmd_customer .
   protected section.
-  private section.
     data: ref_data type ref to cvis_ei_vat_numbers.
     methods constructor importing i_vat type ref to cvis_ei_vat_numbers.
 endclass.
@@ -104,4 +104,21 @@ class zcl_cmd_vat implementation.
   method constructor.
     ref_data = i_vat.
   endmethod.
+  method create_instance.
+    if i_extension_id is initial.
+      r_vat = new #( i_vat = i_vat ).
+    else.
+      data: subclass type ref to object.
+      try.
+          data(sublcass_abs_name) = zcl_cmd_extensions=>get_extension_class_abs_name( id = i_extension_id type = zcl_cmd_extensions=>class_extension-vat ).
+          create object subclass type (sublcass_abs_name)
+           exporting
+            i_vat       = i_vat.
+          r_vat ?= subclass.
+        catch zcx_cmd_no_extension.
+          r_vat = new #( i_vat = i_vat ).
+      endtry.
+    endif.
+  endmethod.
+
 endclass.
