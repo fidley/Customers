@@ -1,3 +1,4 @@
+*Demo on creating new simple contact person
 report zdemo_cmd01.
 
 
