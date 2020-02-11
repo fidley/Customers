@@ -16,8 +16,8 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>ZDEMO_CMD04 - change contact person by name</ENTRY>
-     <LENGTH>43</LENGTH>
+     <ENTRY>ZCL_CMD_CUSTOMER Change of contact person by name</ENTRY>
+     <LENGTH>49</LENGTH>
     </item>
    </TPOOL>
   </asx:values>

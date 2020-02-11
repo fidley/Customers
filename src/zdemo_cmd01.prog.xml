@@ -8,6 +8,7 @@
     <VARCL>X</VARCL>
     <DBAPL>S</DBAPL>
     <SUBC>1</SUBC>
+    <RLOAD>E</RLOAD>
     <FIXPT>X</FIXPT>
     <LDBNAME>D$S</LDBNAME>
     <UCCHECK>X</UCCHECK>
@@ -15,8 +16,8 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>Demof for CMD wrapper</ENTRY>
-     <LENGTH>21</LENGTH>
+     <ENTRY>ZCL_CMD_CUSTOMER Creation of new contact person</ENTRY>
+     <LENGTH>47</LENGTH>
     </item>
    </TPOOL>
   </asx:values>

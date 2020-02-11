@@ -45,7 +45,7 @@ class zcl_cmd_vat implementation.
 
     assign ref_data->vat_numbers[ data_key-land1 = i_country ] to field-symbol(<vat>).
     if sy-subrc ne 0.
-      insert value #( task = zsd_customer_util=>mode-create
+      insert value #( task = zcl_cmd_util=>mode-create
                       data_key-land1 = i_country
                       data-stceg = i_vat_no
                     ) into table ref_data->vat_numbers.
@@ -62,7 +62,7 @@ class zcl_cmd_vat implementation.
 
     assign ref_data->vat_numbers[ data_key-land1 = i_country ] to field-symbol(<vat>).
     if sy-subrc eq 0.
-      <vat>-task = zsd_customer_util=>mode-change.
+      <vat>-task = zcl_cmd_util=>mode-change.
       <vat>-data-stceg = i_vat_no.
     else.
       raise exception type zcx_cmd_customer
@@ -77,7 +77,7 @@ class zcl_cmd_vat implementation.
 
     assign ref_data->vat_numbers[ data_key-land1 = i_country ] to field-symbol(<vat>).
     if sy-subrc eq 0.
-      <vat>-task = zsd_customer_util=>mode-delete.
+      <vat>-task = zcl_cmd_util=>mode-delete.
     else.
       raise exception type zcx_cmd_customer
         exporting

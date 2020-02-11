@@ -10,7 +10,7 @@ try.
     data(contact) = customer->change_contact( i_contact = p_cont ).
     contact->set_addr_lastname( 'LastName' ).
     contact->set_addr_firstname( 'FirstName' ).
-    contact->add_email( 'nomail@nomail.test' ).
+    contact->add_email( 'nomail@nomail.test').
     customer->save( ).
   catch zcx_cmd_customer.
 endtry.
