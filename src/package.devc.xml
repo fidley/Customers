@@ -4,6 +4,7 @@
   <asx:values>
    <DEVC>
     <CTEXT>Customer master data update</CTEXT>
+    <TPCLASS>X</TPCLASS>
    </DEVC>
   </asx:values>
  </asx:abap>
