@@ -7,7 +7,7 @@ class zcx_cmd_customer definition
 
     interfaces if_t100_message .
 
-    constants message_class type sy-msgid value 'Z_CMD_CUSTOMER' ##NO_TEXT.
+    constants message_class type sy-msgid value 'Z_CMD_CUSTOMERS' ##NO_TEXT.
 
     methods constructor
       importing
