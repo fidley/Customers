@@ -239,7 +239,7 @@ CLASS ZCL_CMD_CUSTOMER IMPLEMENTATION.
 
 
   method constructor.
-    customer = i_customer.
+    customer = |{ i_customer  ALPHA = IN }|.
     extension_id = zcl_cmd_extensions=>set_extensions( extensions = i_extension_classes ).
     if customer is initial or customer co '0'.
       mode = zcl_cmd_util=>mode-create.
